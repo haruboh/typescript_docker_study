@@ -53,6 +53,7 @@ docker-compose run --rm node npm i -D typescript @types/node
 docker-compose run --rm node npm i -D ts-node ts-node-dev rimraf npm-run all
 # TypeScriptのコンパイラオプションファイルを作成。
 # 作成されるsrc/tsconfig.jsonに少し手を加える。（リポジトリ参照）
+docker-compose run --rm node npx tsc --init
 ```
 
 以上の準備ができたら`src/html/index.html`,`src/html/js/ts/XXXX`などを作成し開発をすすめる。
