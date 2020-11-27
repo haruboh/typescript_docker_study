@@ -50,7 +50,7 @@ git clone https://github.com/haruboh/typescript_docker_study.git
 docker-compose run --rm node npm init
 # TypeScript開発に必要な各種npmコマンドをインストールしておく
 docker-compose run --rm node npm i -D typescript @types/node
-docker-compose run --rm node npm i -D ts-node ts-node-dev rimraf npm-run all
+docker-compose run --rm node npm i -D ts-node ts-node-dev rimraf npm-run-all
 # TypeScriptのコンパイラオプションファイルを作成。
 # 作成されるsrc/tsconfig.jsonに少し手を加える。（リポジトリ参照）
 docker-compose run --rm node npx tsc --init
