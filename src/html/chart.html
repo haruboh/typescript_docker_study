@@ -16,7 +16,7 @@ select{
 </head>
 <body>
 <!--- 銘柄コードを受け付けるボックス --->
-    <input type = "text" maxlength = "4" id='input'><button id='btn'>Get Info</button>
+    <input type = "text" maxlength = "4" id='stockCode'><button id='btn'>Get Info</button>
 <!--- 描画期間を選ばせるプルダウンメニュー --->
     <select id="span">
         <option value="3m" selected>
@@ -29,12 +29,14 @@ select{
             1y
         </option>
     </select>
+    <button id='kokoClick'>くりっく</button>
 <!--- ローソク足及び移動平均線グラフを配置 --->
     <div id='appendMain'></div>
 <!--- 出来高の棒グラフを配置 --->
     <div id='appendVolume'></div>
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <!--- ここでGoogle Chartの読み込み --->
+<script>
+</script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="js/dist/chart.js"></script>
 </body>

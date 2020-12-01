@@ -215,10 +215,30 @@ function mainChart(json){
 //
 //
 //
-$('#btn').click(async () => {
-    let code = $('#input').val();
+//$('#btn').click(async () => {
+//    let code = $('#input').val();
+//    if(code != ''){
+//        let data = await getCSV(code);
+//        mainChart(data);
+//    };
+//});
+const clickbtn = document.getElementById('btn');
+clickbtn.onclick = async () =>  {
+    let code = document.getElementById('stockCode').value;
     if(code != ''){
         let data = await getCSV(code);
         mainChart(data);
     };
-});
+};
+const clickEveda = document.getElementById('kokoClick');
+clickEveda.onclick = () => alert('hoge')
+//clickEveda.addEventListener(
+//    'click',
+//    e => alert('hogeほげホゲ'),
+//    false
+//);
+//clickEveda.addEventListener//(
+//    'click',
+//    e => alert('piyoぴよピヨ'),
+//    false
+//);
