@@ -225,6 +225,9 @@ clickbtn.onclick = async () =>  {
 };
 const clickEveda = document.getElementById('kokoClick');
 clickEveda.onclick = () => alert('hoge')
+const startdate = "2020-11-22";
+const startDate = document.getElementById('start');
+startDate.value = startdata;
 //clickEveda.addEventListener(
 //    'click',
 //    e => alert('hogeほげホゲ'),
