@@ -47,8 +47,8 @@ function csvStr2json(str){
     let items = arr[0].split(',');
     // 命名則がGoogleChartと異なるなら自分で作る方法に変更
     // GoogleChartの配列は新しい方が前ぽいのでreverseで取得する。
-    // arr to json
-    for (let i=arr.length-1;i >=1;i--){
+    // arr to json [0]は項目名なので除去
+    for (let i=arr.length-2;i >=1;i--){
         let a_line = new Object();
         let tmp = arr[i].split(',');
         for (let j=0;j<items.length;++j){
@@ -62,7 +62,7 @@ function csvStr2json(str){
 
 }
 // 出来高棒グラフ
-function volumeChart(volume, dates, length){
+function volumeChart(volume, dates, length, past){
     let chartData = new google.visualization.DataTable();
     chartData.addColumn('string');
     chartData.addColumn('number');
@@ -70,7 +70,9 @@ function volumeChart(volume, dates, length){
     for(let a=0;a<length;a++){
         insertingData[a] = [dates[a],parseInt(volume[a])];
     }
-    for (let i = 1;i<insertingData.length; i++){
+    //for (let i = 1;i<insertingData.length; i++){
+    //for (let i = insertingData.length - past;i<insertingData.length; i++){
+    for (let i = 0;i<past; i++){
         chartData.addRow(insertingData[i]);
     };
     let options = {
@@ -119,7 +121,7 @@ function calcMovingAverage(num, length, json){
     return arr;
 }
 google.charts.load('current', {'packages':['corechart']});
-function mainChart(json){
+function mainChart(json, past){
     // 描画するデータの箱を用意する
     let chartData = new google.visualization.DataTable();
     chartData.addColumn('string');
@@ -153,7 +155,8 @@ function mainChart(json){
     //最古の５０日分のデータまでは移動平均線のデータは揃っていないので取り除く
     //ということだがなければ表示しないだけなので無視する。
     //for (let i = insertingData.length-1;i>0; i--){
-    for (let i = 1;i<insertingData.length; i++){
+    //for (let i = 1;i<insertingData.length; i++){
+    for (let i = 0;i<past; i++){
         chartData.addRow(insertingData[i]);
     }
 
@@ -202,9 +205,20 @@ function mainChart(json){
     let chart = new google.visualization.ComboChart(document.getElementById('appendMain'));
     chart.draw(chartData, options);
     //出来高棒グラフを作成する関数を呼び出す
-    volumeChart(volume, dates, length);
+    volumeChart(volume, dates, length, past);
 };
 
+// 定義済み変数など
+let pastCode = document.getElementById('stockCode').value;
+const dateTmp = new Date();
+dateTmp.setDate(dateTmp.getDate());
+const eyyyy = dateTmp.getFullYear();
+const emm = ("0" + (dateTmp.getMonth() + 1)).slice(-2);
+const edd = ("0" + (dateTmp.getDate())).slice(-2);
+document.getElementById("end").value = `${eyyyy}-${emm}-${edd}`;
+let data;
+let lastDay;
+let pastDay;
 // 
 // ボタンを押すとinputに書いている４桁の数字のcsvファイルを解析してjsonにする処理が走る（つもり
 // getCSV関数でcsvを取得してjson変数に格納している（つもり
@@ -217,17 +231,25 @@ function mainChart(json){
 //
 const clickbtn = document.getElementById('btn');
 clickbtn.onclick = async () =>  {
+    console.log(`maeha ${pastCode}`)
     let code = document.getElementById('stockCode').value;
-    if(code != ''){
-        let data = await getCSV(code);
-        mainChart(data);
+    // あるcodeを初めて読み込む場合
+    if(code != pastCode){
+        data = await getCSV(code);
+        // 配列の最後の日付を取得
+        lastDay = data[0].Date;
+        pastDay = 120;
     };
+    if(code != ''){
+        console.log(lastDay);
+        mainChart(data, pastDay);
+        document.getElementById("end").value = lastDay;
+    };
+    pastCode = code;
 };
-const clickEveda = document.getElementById('kokoClick');
-clickEveda.onclick = () => alert('hoge')
-const startdate = "2020-11-22";
-const startDate = document.getElementById('start');
-startDate.value = startdata;
+//const clickEveda = document.getElementById('kokoClick');
+//clickEveda.onclick = () => alert('hoge');
+
 //clickEveda.addEventListener(
 //    'click',
 //    e => alert('hogeほげホゲ'),

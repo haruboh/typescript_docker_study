@@ -16,22 +16,36 @@ select{
 </head>
 <body>
 <!--- 銘柄コードを受け付けるボックス --->
-    <input type = "text" maxlength = "4" id='stockCode'><button id='btn'>Get Info</button>
+    <input type = "text" maxlength = "4" id='stockCode'><button id='btn'>描画</button>
 <!--- 描画期間を選ばせるプルダウンメニュー --->
     <select id="span">
-        <option value="3m" selected>
-            3m
+        <option value="60d">
+            60
         </option>
-        <option value="6m">
-            6m
+        <option value="90d">
+            90
         </option>
-        <option value="1y">
-            1y
+        <option value="120d" selected>
+            120
+        </option>
+        <option value="150d">
+            150
+        </option>
+        <option value="180d">
+            180
+        </option>
+        <option value="240d">
+            240
+        </option>
+        <option value="360d">
+            360
         </option>
     </select>
-    <button id='kokoClick'>くりっく</button>
-    <input type='date' name="start`" id='start'>
-    <input type='date' name="end`">
+    <!--- <button id='kokoClick'>くりっく</button> --->
+    <!--- <input type='date' name="start`" id='start'> --->
+    <input type='date' name='end' id='end'>
+    コードを変更した場合最新120日固定
+
 <!--- ローソク足及び移動平均線グラフを配置 --->
     <div id='appendMain'></div>
 <!--- 出来高の棒グラフを配置 --->
