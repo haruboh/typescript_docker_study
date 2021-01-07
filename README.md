@@ -1,5 +1,6 @@
 # dockerでTypeScriptの勉強
 
+DropboxにDEVELOP.mdを書いているので参考にするがいい
 ## File Configuration
 
 ```
